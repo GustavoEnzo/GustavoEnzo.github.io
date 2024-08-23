@@ -61,7 +61,7 @@ body {
 /* Contêiner do carrossel */
 .carousel-container {
   width: 40%;
-  height: 800px; /* Definido altura fixa */
+  height: 1000px; /* Definido altura fixa */
   overflow: hidden;
   position: relative;
   background-color: #fff;
@@ -169,7 +169,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 600px;
+    height: 800px;
   }
   .carousel-slide {
     height: 100%;
