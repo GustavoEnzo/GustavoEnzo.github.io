@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrossel Centralizado</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Love+Light&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <section class="inicio">
+        <h1>Pra mulher da minha vida S2</h1>
+        <audio id="meuAudio" src="/assets/musica.mp3"></audio>
+        <button class="playButton">Play</button>
+        <input type="range" id="volumeControl" min="0" max="100" value="10" />
+      </section>
+      <section class="momoti">
+        <div class="carousel-container">
+          <div class="carousel-slide">
+            <div class="carousel-item">
+              <img src="assets/1.webp" alt="Imagem 1" />
+            </div>
+            <div class="carousel-item">
+              <img src="assets/2.webp" alt="Imagem 2" />
+            </div>
+            <div class="carousel-item">
+              <img src="assets/3.webp" alt="Imagem 3" />
+            </div>
+            <div class="carousel-item">
+              <video autoplay muted>
+                <source src="assets/4.mp4" type="video/mp4" />
+                Seu navegador não suporta a tag de vídeo.
+              </video>
+            </div>
+            <div class="carousel-item">
+              <img src="assets/5.webp" alt="Imagem 5" />
+            </div>
+            <div class="carousel-item">
+              <video autoplay muted>
+                <source src="assets/6.mp4" type="video/mp4" />
+                Seu navegador não suporta a tag de vídeo.
+              </video>
+            </div>
+            <div class="carousel-item">
+              <img src="assets/7.webp" alt="Imagem 7" />
+            </div>
+          </div>
+          <button class="carousel-prev">❮</button>
+          <button class="carousel-next">❯</button>
+        </div>
+      </section>
+
+      <h2 class="rodape">
+        E esse é o tempo desde que minha vida começou a ser muito mais muito
+        mais feliz
+      </h2>
+      <audio id="meuAudio" src="/assets/musica.mp3" autoplay loop></audio>
+      <!-- Relógio Digital em Cards -->
+      <div class="clock-container">
+        <div class="clock-card">
+          <div id="clock-1"></div>
+        </div>
+        <div class="clock-card">
+          <div id="clock-2"></div>
+        </div>
+        <div class="clock-card">
+          <div id="clock-3"></div>
+        </div>
+        <div class="clock-card">
+          <div id="clock-4"></div>
+        </div>
+        <div class="clock-card">
+          <div id="clock-5"></div>
+        </div>
+        <div class="clock-card">
+          <div id="clock-6"></div>
+        </div>
+      </div>
+      <h2 class="rodape2">
+        Obrigado por ser tudo na minha vida, e me apoiar sempre, eu te amo muito
+      </h2>
+      <script>
+        const slideContainer = document.querySelector(".carousel-slide");
+        const slides = document.querySelectorAll(".carousel-item");
+        const prevBtn = document.querySelector(".carousel-prev");
+        const nextBtn = document.querySelector(".carousel-next");
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        const slideInterval = 5000; // Intervalo de 3 segundos
+
+        function updateSlidePosition() {
+          slideContainer.style.transform = `translateX(-${
+            currentSlide * 100
+          }%)`;
+          slides.forEach((slide) => {
+            const video = slide.querySelector("video");
+            if (video) {
+              video.pause(); // Pause o vídeo se ele estiver tocando
+            }
+          });
+
+          // Reproduzir o vídeo no slide atual
+          const activeSlide = slides[currentSlide];
+          const activeVideo = activeSlide.querySelector("video");
+          if (activeVideo) {
+            activeVideo.play(); // Reproduzir o vídeo se ele estiver no slide ativo
+          }
+        }
+
+        function goToNextSlide() {
+          currentSlide = (currentSlide + 1) % totalSlides;
+          updateSlidePosition();
+        }
+
+        prevBtn.addEventListener("click", () => {
+          currentSlide =
+            currentSlide === 0 ? totalSlides - 1 : currentSlide - 1;
+          updateSlidePosition();
+        });
+
+        nextBtn.addEventListener("click", () => {
+          goToNextSlide();
+        });
+
+        // Inicia o carrossel automaticamente
+        setInterval(goToNextSlide, slideInterval);
+        function updateClock() {
+          const startDate = new Date("2020-12-31T23:00:00");
+          const now = new Date();
+          const elapsed = now - startDate;
+
+          const seconds = Math.floor(elapsed / 1000);
+          const minutes = Math.floor(seconds / 60);
+          const hours = Math.floor(minutes / 60);
+          const days = Math.floor(hours / 24);
+          const months = Math.floor(days / 30);
+          const years = Math.floor(days / 365);
+
+          const daysInYear = days % 365;
+          const monthsInYear = months % 12;
+
+          document.getElementById("clock-1").textContent = `${years} anos`;
+          document.getElementById(
+            "clock-2"
+          ).textContent = `${monthsInYear} meses`;
+          document.getElementById("clock-3").textContent = `${daysInYear} dias`;
+          document.getElementById("clock-4").textContent = `${
+            hours % 24
+          } horas`;
+          document.getElementById("clock-5").textContent = `${
+            minutes % 60
+          } minutos`;
+          document.getElementById("clock-6").textContent = `${
+            seconds % 60
+          } segundos`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+        document
+          .querySelector(".playButton")
+          .addEventListener("click", function () {
+            const audio = document.getElementById("meuAudio");
+            audio
+              .play()
+              .then(() => {
+                document.querySelector(".playButton").style.display = "none";
+              })
+              .catch((error) => {
+                console.error("Erro ao tentar reproduzir o áudio:", error);
+              });
+          });
+
+        // Adicionando controle de volume
+        document
+          .getElementById("volumeControl")
+          .addEventListener("input", function () {
+            const audio = document.getElementById("meuAudio");
+            audio.volume = this.value / 100; // O valor do controle de volume deve estar entre 0 e 1
+          });
+      </script>
+    </div>
+  </body>
+</html>
