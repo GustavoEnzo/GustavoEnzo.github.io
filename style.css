@@ -162,13 +162,14 @@ body {
   .container {
     height: 100vh;
     margin: 0;
+    padding: 5px;
   }
   .carousel-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 400px;
+    height: 600px;
   }
   .carousel-slide {
     height: 100%;
@@ -198,5 +199,11 @@ body {
     font-size: 1.5rem;
     display: flex;
     justify-content: center;
+  }
+  .rodape {
+    font-size: 1.5rem;
+  }
+  .rodape2 {
+    font-size: 1.5rem;
   }
 }
